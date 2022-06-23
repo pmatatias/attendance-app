@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:attendance_app/component/save_button.dart';
 import 'package:attendance_app/utils/appstate.dart';
+import 'package:attendance_app/utils/konstanta.dart';
 import 'package:attendance_app/utils/model.dart';
 import 'package:attendance_app/utils/my_function.dart';
+import 'package:attendance_app/utils/palette.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -40,7 +43,6 @@ class _MasterLocSetState extends State<MasterLocSet> {
             btnOkOnPress: () {})
         .show();
 
-
     if (state.masterData?.latitude != null &&
         state.masterData?.longitude != null) {
       _marker.add(
@@ -55,7 +57,6 @@ class _MasterLocSetState extends State<MasterLocSet> {
     setState(() {
       _marker = _marker;
     });
-
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -77,6 +78,7 @@ class _MasterLocSetState extends State<MasterLocSet> {
       MasterData data = MasterData.fromJson(jsonDecode(jsonn));
 
       appState.serMasterData(data);
+      Navigator.pop(context);
 
       AwesomeDialog(
         context: context,
@@ -85,9 +87,12 @@ class _MasterLocSetState extends State<MasterLocSet> {
         title: 'Success',
         desc:
             'Master location Updated to : ( ${appState.masterData?.latitude} , ${appState.masterData?.longitude} )  ',
-        btnOkOnPress: () {},
+        btnOkOnPress: () {
+          Navigator.pop(context);
+        },
       ).show();
     } else {
+      Navigator.pop(context);
       AwesomeDialog(
         context: context,
         dialogType: DialogType.ERROR,
@@ -118,20 +123,10 @@ class _MasterLocSetState extends State<MasterLocSet> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Set Master loc"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                onSave(appState);
-              },
-              child: const Text(
-                "Save",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
+          title: const Text(
+            "Set Master loc",
+            style: kAppbarTitle,
+          ),
         ),
         body: Stack(
           children: [
@@ -147,6 +142,23 @@ class _MasterLocSetState extends State<MasterLocSet> {
                     zoom: 15.0),
               ),
             ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                height: 100,
+                alignment: Alignment.center,
+                color: Palette.kToDark.shade700,
+                child: ButtonSave(
+                  onTap: () {
+                    printLog("ontap here");
+                    showLoaderDialogLoading(context);
+                    onSave(appState);
+                  },
+                ),
+              ),
+            )
           ],
         ),
       ),

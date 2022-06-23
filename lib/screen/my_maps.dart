@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:attendance_app/utils/appstate.dart';
+import 'package:attendance_app/utils/konstanta.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +65,7 @@ class _MyMapsState extends State<MyMaps> {
     var appState = context.watch<AppState>();
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text("Maps")),
+        appBar: AppBar(title: const Text("Maps",style: kAppbarTitle,)),
         body: Stack(
           children: [
             Align(
