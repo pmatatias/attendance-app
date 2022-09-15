@@ -19,14 +19,14 @@ class MasterInfo extends StatelessWidget {
           decoration: BoxDecoration(
             // color: cCall,
             borderRadius: BorderRadius.circular(8),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.07), BlendMode.dstATop),
-              image: const Image(
-                image: AssetImage('assets/building.png'),
-              ).image,
-            ),
+            // image: DecorationImage(
+            //   fit: BoxFit.cover,
+            //   colorFilter: ColorFilter.mode(
+            //       Colors.black.withOpacity(0.07), BlendMode.dstATop),
+            //   image: const Image(
+            //     image: AssetImage('assets/building.png'),
+            //   ).image,
+            // ),
             // width: 80,
           ),
           alignment: Alignment.center,

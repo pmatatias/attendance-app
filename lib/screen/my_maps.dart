@@ -15,6 +15,8 @@ class MyMaps extends StatefulWidget {
 class _MyMapsState extends State<MyMaps> {
   final Completer<GoogleMapController> _controller = Completer();
   Set<Marker> _markers = {};
+  String a = '';
+  CameraPosition? cameraPosition;
   @override
   void initState() {
     init();
@@ -65,21 +67,45 @@ class _MyMapsState extends State<MyMaps> {
     var appState = context.watch<AppState>();
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text("Maps",style: kAppbarTitle,)),
+        appBar: AppBar(
+            title: const Text(
+          "Maps",
+          style: kAppbarTitle,
+        )),
         body: Stack(
           children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: GoogleMap(
-                onMapCreated: _onMapCreated,
-                myLocationButtonEnabled: true,
-                markers: _markers,
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(appState.masterData?.latitude ?? -6.1990882,
-                        appState.masterData?.longitude ?? 106.7462907),
-                    zoom: 15.0),
-              ),
-            ),
+Align(
+  alignment: Alignment.topCenter,
+  child: GoogleMap(
+    onMapCreated: _onMapCreated,
+    myLocationButtonEnabled: true,
+    markers: _markers,
+    initialCameraPosition: CameraPosition(
+        target: LatLng(appState.masterData?.latitude ?? -6.1990882,
+            appState.masterData?.longitude ?? 106.7462907),
+        zoom: 15.0),
+    onCameraMove: (CameraPosition position) {
+      print("pos : $position");
+      setState(() {
+        cameraPosition = position;
+      });
+    },
+    onCameraIdle: () {
+      setState(() {
+        _markers.clear();
+        _markers.add(
+          Marker(
+            markerId: const MarkerId('adasda'),
+            position:
+                cameraPosition?.target ?? const LatLng(0.0, 0.0),
+            icon: BitmapDescriptor.defaultMarkerWithHue(270),
+          ),
+        );
+      });
+    },
+  ),
+),
+            Text(a),
           ],
         ),
       ),

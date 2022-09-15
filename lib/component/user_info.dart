@@ -93,16 +93,16 @@ class _UserInfoState extends State<UserInfo> {
           decoration: BoxDecoration(
             // color: cCall,
             borderRadius: BorderRadius.circular(8),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.07), BlendMode.dstATop),
-              image: Image(
-                image: state.userData?.isAttend == true
-                    ? const AssetImage('assets/location.png')
-                    : const AssetImage('assets/location2.png'),
-              ).image,
-            ),
+            // image: DecorationImage(
+            //   fit: BoxFit.cover,
+            //   colorFilter: ColorFilter.mode(
+            //       Colors.black.withOpacity(0.07), BlendMode.dstATop),
+            //   image: Image(
+            //     image: state.userData?.isAttend == true
+            //         ? const AssetImage('assets/location.png')
+            //         : const AssetImage('assets/location2.png'),
+            //   ).image,
+            // ),
             // width: 80,
           ),
           alignment: Alignment.center,
@@ -139,7 +139,7 @@ class _UserInfoState extends State<UserInfo> {
                 InfoTile(
                   param: "Name",
                   value: state.userData?.username ?? '-',
-                  icon: Icons.business,
+                  icon: Icons.person_outline_rounded,
                 ),
                 const SizedBox(
                   height: 10,
@@ -189,11 +189,10 @@ class _UserInfoState extends State<UserInfo> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                    child: Text(
+                Text(
                   state.userData?.timestamps ?? '-',
                   style: const TextStyle(fontWeight: FontWeight.w500),
-                ))
+                )
               ]),
         ),
       ]),

@@ -7,9 +7,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => AppState(),
-      child: const MyApp(),
-    ),
+        create: (context) => AppState(), child: const MyApp()),
   );
 }
 
@@ -24,7 +22,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Palette.primary,
         errorColor: Palette.danger,
-
         primarySwatch: Palette.kToDark,
       ),
       home: const Home(),
